@@ -9,7 +9,7 @@ I made this to track my BMW order. When node-red recieves a valid API request, t
 
  1. [Install node-red on platform of choice](https://nodered.org/docs/getting-started/local)
  2. [Clone project from this repo](https://nodered.org/docs/user-guide/projects/)
- 3. Interface with the API using an apple shortcut or any other simple HTTP rest api client.
+ 3. Interface with the API using an [apple shortcut](https://www.icloud.com/shortcuts/51df3115cede4393a9261c44715b216e) or any other simple HTTP rest api client.
 
 ### API
 

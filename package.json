@@ -1,8 +1,10 @@
 {
     "name": "bmw-tracker",
-    "description": "A Node-RED Project",
-    "version": "0.0.1",
-    "dependencies": {},
+    "description": "track your bmw obsessively",
+    "version": "0.0.2",
+    "dependencies": {
+        "node-red-contrib-moment": "4.0.0"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flow.json",
