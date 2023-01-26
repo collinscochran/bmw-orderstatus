@@ -1,0 +1,933 @@
+[
+    {
+        "id": "0422238f0ca23b6d",
+        "type": "tab",
+        "label": "garage api",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3246d1478bd44dda",
+        "type": "junction",
+        "z": "0422238f0ca23b6d",
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "136e2428e30e8ead"
+            ]
+        ]
+    },
+    {
+        "id": "a1e6931482597790",
+        "type": "junction",
+        "z": "0422238f0ca23b6d",
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "e04c0938181db7d3"
+            ]
+        ]
+    },
+    {
+        "id": "fcefd17e94a496bd",
+        "type": "twilio-api",
+        "name": "",
+        "sid": "ACc84509b45724cc978afb4833aeb06641",
+        "from": "+18018054910"
+    },
+    {
+        "id": "60894ea5c1ca77b1",
+        "type": "car-bmw",
+        "name": "collins cochran",
+        "region": "1",
+        "unit": "imperial",
+        "debug": false
+    },
+    {
+        "id": "5ba4648f.e37f3c",
+        "type": "template",
+        "z": "0422238f0ca23b6d",
+        "name": "login credentials and user ID",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "client_id=b175da89-bcb4-4e85-aa88-b2b99e9b319f&response_type=code&scope=authenticate_user&redirect_uri=https%3A%2F%2Fmybmw.bmwusa.com%2Fsso&state=%2Fterms%2Faccept%3Flanguage%3Den%3F&nonce=&username={{{auth.username}}}&password={{{auth.password}}}&grant_type=authorization_code",
+        "output": "str",
+        "x": 500,
+        "y": 200,
+        "wires": [
+            [
+                "b6e2ac00.435b68"
+            ]
+        ]
+    },
+    {
+        "id": "b6e2ac00.435b68",
+        "type": "http request",
+        "z": "0422238f0ca23b6d",
+        "name": "authenticate",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://login.bmwusa.com/gcdm/oauth/authenticate",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Accept",
+                "valueType": "other",
+                "valueValue": "application/json, text/plain, */*"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Origin",
+                "valueType": "other",
+                "valueValue": "https://login.bmwusa.com"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Referer",
+                "valueType": "other",
+                "valueValue": "https://login.bmwusa.com/"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Accept-Encoding",
+                "valueType": "other",
+                "valueValue": "deflate, gzip"
+            },
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/x-www-form-urlencoded"
+            }
+        ],
+        "x": 710,
+        "y": 200,
+        "wires": [
+            [
+                "e35944a8e4ac7276"
+            ]
+        ]
+    },
+    {
+        "id": "e35944a8e4ac7276",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "responseCookies.GCDMSSO.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 200,
+        "wires": [
+            [
+                "89e1d9037d0ac356"
+            ]
+        ]
+    },
+    {
+        "id": "89e1d9037d0ac356",
+        "type": "split",
+        "z": "0422238f0ca23b6d",
+        "name": "capture first 27 char of token",
+        "splt": "27",
+        "spltType": "len",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 1120,
+        "y": 200,
+        "wires": [
+            [
+                "800ce0ed5deaca8b"
+            ]
+        ]
+    },
+    {
+        "id": "800ce0ed5deaca8b",
+        "type": "switch",
+        "z": "0422238f0ca23b6d",
+        "name": "take only part 0",
+        "property": "parts.index",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1340,
+        "y": 200,
+        "wires": [
+            [
+                "88c2cdcdb83537ec"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "15f00a246b66ec31",
+        "type": "debug",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1690,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "88c2cdcdb83537ec",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1540,
+        "y": 200,
+        "wires": [
+            [
+                "15f00a246b66ec31",
+                "38d4f7d184f69242"
+            ]
+        ]
+    },
+    {
+        "id": "9bca935ea828625c",
+        "type": "http request",
+        "z": "0422238f0ca23b6d",
+        "name": "get car info",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://mygarage.bmwusa.com/bin/api/forward?GroupId=4xTBchv6BNXVd2IXymyy3g%3D%3D&targetURL=%2Fmybmw%2Fresources%2Fgarage%2FgetGarageVehiclesByGroupId&gcid=ba9de149-40da-42d0-baed-c5d5d246940e&Brand=BMWAUTO",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Accept",
+                "valueType": "other",
+                "valueValue": "application/json, text/plain, */*"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Referer",
+                "valueType": "other",
+                "valueValue": "https://mygarage.bmwusa.com/"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Accept-Encoding",
+                "valueType": "other",
+                "valueValue": "deflate, gzip"
+            },
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/x-www-form-urlencoded"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Authorization",
+                "valueType": "msg",
+                "valueValue": "payload"
+            }
+        ],
+        "x": 690,
+        "y": 400,
+        "wires": [
+            [
+                "01ad28bb988be421"
+            ]
+        ]
+    },
+    {
+        "id": "0b99f85cdf14df93",
+        "type": "template",
+        "z": "0422238f0ca23b6d",
+        "name": "build user id and token",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "gcid=ba9de149-40da-42d0-baed-c5d5d246940e,token={{{global.token}}}",
+        "output": "str",
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "9bca935ea828625c"
+            ]
+        ]
+    },
+    {
+        "id": "a69753afdc12b03c",
+        "type": "comment",
+        "z": "0422238f0ca23b6d",
+        "name": "authenticate and save token",
+        "info": "",
+        "x": 260,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "4c1572ab9ff48e3e",
+        "type": "comment",
+        "z": "0422238f0ca23b6d",
+        "name": "get all car data",
+        "info": "",
+        "x": 220,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "025d3376fd4614d0",
+        "type": "link in",
+        "z": "0422238f0ca23b6d",
+        "name": "refresh cookie",
+        "links": [
+            "aa35f1419167d773"
+        ],
+        "x": 165,
+        "y": 200,
+        "wires": [
+            [
+                "926f946bb36912a4"
+            ]
+        ]
+    },
+    {
+        "id": "38d4f7d184f69242",
+        "type": "delay",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1700,
+        "y": 240,
+        "wires": [
+            [
+                "b1d370d262d676ec"
+            ]
+        ]
+    },
+    {
+        "id": "5d79b84b4b829922",
+        "type": "link in",
+        "z": "0422238f0ca23b6d",
+        "name": "get build data",
+        "links": [
+            "b1d370d262d676ec",
+            "f693ddf71ca339d8",
+            "3eca2190390597e8"
+        ],
+        "x": 145,
+        "y": 400,
+        "wires": [
+            [
+                "e24d6729578e19a7"
+            ]
+        ]
+    },
+    {
+        "id": "b1d370d262d676ec",
+        "type": "link out",
+        "z": "0422238f0ca23b6d",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "5d79b84b4b829922"
+        ],
+        "x": 1845,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "01ad28bb988be421",
+        "type": "switch",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 830,
+        "y": 400,
+        "wires": [
+            [
+                "aa35f1419167d773",
+                "482799479ce2e7ee"
+            ],
+            [
+                "46c69f1a16c40286",
+                "e04c0938181db7d3",
+                "482799479ce2e7ee"
+            ]
+        ]
+    },
+    {
+        "id": "aa35f1419167d773",
+        "type": "link out",
+        "z": "0422238f0ca23b6d",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "025d3376fd4614d0"
+        ],
+        "x": 945,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "46c69f1a16c40286",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "save all car data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data",
+                "pt": "global",
+                "to": "payload.dataContent",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "statusnew",
+                "pt": "global",
+                "to": "payload.dataContent.ProdVehicleDetails[0].orderStatusCode",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 420,
+        "wires": [
+            [
+                "136e2428e30e8ead"
+            ]
+        ]
+    },
+    {
+        "id": "d9740f57ee135009",
+        "type": "http in",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "url": "/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 640,
+        "wires": [
+            [
+                "09b7ed9a5370e1fd"
+            ]
+        ]
+    },
+    {
+        "id": "209406fb133f60e7",
+        "type": "http response",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 600,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "09b7ed9a5370e1fd",
+        "type": "template",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "nice try",
+        "output": "str",
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "209406fb133f60e7"
+            ]
+        ]
+    },
+    {
+        "id": "aa84608d055612ac",
+        "type": "comment",
+        "z": "0422238f0ca23b6d",
+        "name": "serves a blank page at the index",
+        "info": "",
+        "x": 270,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "89bca3b9a612e8d7",
+        "type": "http response",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1240,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "14493dcd4d60b385",
+        "type": "comment",
+        "z": "0422238f0ca23b6d",
+        "name": "reply to api requests v2",
+        "info": "",
+        "x": 240,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "b010089464e8acea",
+        "type": "link in",
+        "z": "0422238f0ca23b6d",
+        "name": "api response",
+        "links": [
+            "136e2428e30e8ead"
+        ],
+        "x": 765,
+        "y": 760,
+        "wires": [
+            [
+                "a0c12d8c3a1ae425"
+            ]
+        ]
+    },
+    {
+        "id": "136e2428e30e8ead",
+        "type": "link out",
+        "z": "0422238f0ca23b6d",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "b010089464e8acea"
+        ],
+        "x": 1255,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a0c12d8c3a1ae425",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "move global obj to paload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "overHeadMessage",
+                "pt": "msg",
+                "to": "data.ProdVehicleDetails[0].overHeadMessage",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "orderStatusCode",
+                "pt": "msg",
+                "to": "data.ProdVehicleDetails[0].orderStatusCode",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "vin",
+                "pt": "msg",
+                "to": "data.ProdVehicleDetails[0].vin",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "overHeadLongMessage",
+                "pt": "msg",
+                "to": "data.ProdVehicleDetails[0].overHeadLongMessage",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "updated",
+                "pt": "msg",
+                "to": "data.aemServerTime",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "description",
+                "pt": "msg",
+                "to": "data.ProdVehicleDetails[0].longDesc",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 760,
+        "wires": [
+            [
+                "798e646ad185425a"
+            ]
+        ]
+    },
+    {
+        "id": "798e646ad185425a",
+        "type": "template",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{description}}: {{overHeadMessage}} (Order status code: {{orderStatusCode}}, VIN: {{vin}}) Last update was {{global.lastUpdate}} - {{global.data.aemServerTime}}.",
+        "output": "str",
+        "x": 1100,
+        "y": 760,
+        "wires": [
+            [
+                "89bca3b9a612e8d7"
+            ]
+        ]
+    },
+    {
+        "id": "e24d6729578e19a7",
+        "type": "delay",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 400,
+        "wires": [
+            [
+                "0b99f85cdf14df93"
+            ],
+            [
+                "3246d1478bd44dda",
+                "a1e6931482597790"
+            ]
+        ]
+    },
+    {
+        "id": "eb3832bf0d18d309",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "save updated time",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lastUpdate",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e04c0938181db7d3",
+        "type": "moment",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "topic": "",
+        "input": "data.aemServerTime",
+        "inputType": "global",
+        "inTz": "Europe/Berlin",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "fromNow",
+        "locale": "en-US",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "America/Denver",
+        "x": 820,
+        "y": 460,
+        "wires": [
+            [
+                "eb3832bf0d18d309"
+            ]
+        ]
+    },
+    {
+        "id": "d2c50d291513c78b",
+        "type": "inject",
+        "z": "0422238f0ca23b6d",
+        "name": "refresh data manually",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 360,
+        "wires": [
+            [
+                "0b99f85cdf14df93"
+            ]
+        ]
+    },
+    {
+        "id": "c30fde96be5e2c3a",
+        "type": "http in",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "url": "/api/2",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 760,
+        "wires": [
+            [
+                "e0746e47f69dee42"
+            ]
+        ]
+    },
+    {
+        "id": "3eca2190390597e8",
+        "type": "link out",
+        "z": "0422238f0ca23b6d",
+        "name": "api v2",
+        "mode": "link",
+        "links": [
+            "5d79b84b4b829922"
+        ],
+        "x": 495,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "ce47aae716da955d",
+        "type": "inject",
+        "z": "0422238f0ca23b6d",
+        "name": "refresh token manually",
+        "props": [
+            {
+                "p": "payload.username",
+                "v": "username here",
+                "vt": "str"
+            },
+            {
+                "p": "payload.password",
+                "v": "password here",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 260,
+        "y": 160,
+        "wires": [
+            [
+                "5ba4648f.e37f3c"
+            ]
+        ]
+    },
+    {
+        "id": "e0746e47f69dee42",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "auth.username",
+                "pt": "global",
+                "to": "payload.username",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "auth.password",
+                "pt": "global",
+                "to": "payload.password",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 760,
+        "wires": [
+            [
+                "3eca2190390597e8"
+            ]
+        ]
+    },
+    {
+        "id": "926f946bb36912a4",
+        "type": "change",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "auth.username",
+                "pt": "msg",
+                "to": "auth.username",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "auth.password",
+                "pt": "msg",
+                "to": "auth.password",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 200,
+        "wires": [
+            [
+                "5ba4648f.e37f3c"
+            ]
+        ]
+    },
+    {
+        "id": "482799479ce2e7ee",
+        "type": "debug",
+        "z": "0422238f0ca23b6d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 340,
+        "wires": []
+    }
+]
