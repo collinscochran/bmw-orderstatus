@@ -10,7 +10,15 @@
     {
         "id": "87374f11104ba721",
         "type": "tab",
-        "label": "ship tracker",
+        "label": "ship api",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9907ef4cc8e9284f",
+        "type": "tab",
+        "label": "ship torreador",
         "disabled": false,
         "info": "",
         "env": []
@@ -36,6 +44,18 @@
         "wires": [
             [
                 "e04c0938181db7d3"
+            ]
+        ]
+    },
+    {
+        "id": "3039727f7b81f0f6",
+        "type": "junction",
+        "z": "87374f11104ba721",
+        "x": 380,
+        "y": 440,
+        "wires": [
+            [
+                "d8b7d450e40b9a16"
             ]
         ]
     },
@@ -210,7 +230,7 @@
         "type": "debug",
         "z": "0422238f0ca23b6d",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -350,7 +370,8 @@
         "z": "0422238f0ca23b6d",
         "name": "refresh cookie",
         "links": [
-            "aa35f1419167d773"
+            "aa35f1419167d773",
+            "9249b04848a8fee2"
         ],
         "x": 165,
         "y": 200,
@@ -926,7 +947,7 @@
         "type": "debug",
         "z": "0422238f0ca23b6d",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -942,7 +963,7 @@
         "id": "267ef90c7c208440",
         "type": "inject",
         "z": "87374f11104ba721",
-        "name": "",
+        "name": "refresh ship data from vesslefinder",
         "props": [
             {
                 "p": "payload"
@@ -952,18 +973,18 @@
                 "vt": "str"
             }
         ],
-        "repeat": "30",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "{\"name\":\"Joe\", \"lat\":51, \"lon\":-1.05}",
         "payloadType": "str",
-        "x": 70,
-        "y": 60,
+        "x": 260,
+        "y": 120,
         "wires": [
             [
-                "a10c73268bfaaa3e"
+                "315bc76d49b93952"
             ]
         ]
     },
@@ -983,29 +1004,13 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 230,
-        "y": 60,
+        "x": 610,
+        "y": 120,
         "wires": [
             [
                 "c29f37089f0af26c"
             ]
         ]
-    },
-    {
-        "id": "68461ca9617290a2",
-        "type": "debug",
-        "z": "87374f11104ba721",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1060,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "5bc32c9ad72ea42f",
@@ -1015,12 +1020,11 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 310,
-        "y": 160,
+        "x": 510,
+        "y": 180,
         "wires": [
             [
-                "5ec3e53df5a67e18",
-                "e22120a0b6523739"
+                "5ec3e53df5a67e18"
             ]
         ]
     },
@@ -1052,8 +1056,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 720,
-        "y": 220,
+        "x": 780,
+        "y": 180,
         "wires": []
     },
     {
@@ -1067,30 +1071,13 @@
         "syntax": "mustache",
         "template": "{\"name\":\"the car\", \"lat\":{{payload.F.LAT}}, \"lon\":{{payload.F.LNG}}, \"icon\":\"fa-car\", \"heading\":\"{{payload.cval-cog.V}}\", \"speed\":\"{{payload.cval-sog.V}}\"}",
         "output": "json",
-        "x": 460,
-        "y": 160,
+        "x": 640,
+        "y": 180,
         "wires": [
             [
-                "68461ca9617290a2",
                 "c58347b4f88ef390"
             ]
         ]
-    },
-    {
-        "id": "1a9ab968a78337a1",
-        "type": "debug",
-        "z": "87374f11104ba721",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "e22120a0b6523739",
@@ -1103,8 +1090,8 @@
         "syntax": "mustache",
         "template": "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+555555({{payload.F.LNG}},{{payload.F.LAT}})/{{payload.F.LNG}},{{payload.F.LAT}},7,0/600x600?access_token=pk.eyJ1IjoiY29sbGluc2NvY2hyYW4iLCJhIjoiY2xkdGM2cHNuMGhibzNvcGVpdTdtOXhidCJ9.u_JkCmDXw-PzGCXv9RoolA",
         "output": "str",
-        "x": 260,
-        "y": 300,
+        "x": 780,
+        "y": 400,
         "wires": [
             [
                 "e4aed7ccd05d5902"
@@ -1127,11 +1114,11 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 450,
-        "y": 300,
+        "x": 930,
+        "y": 400,
         "wires": [
             [
-                "02097124f22c1689"
+                "7ebeaa5b5835a3bf"
             ]
         ]
     },
@@ -1146,36 +1133,19 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 880,
-        "y": 280,
+        "x": 1860,
+        "y": 400,
         "wires": [
             [
-                "bedf7d0e03cfee5f"
+                "f55b195a1a840cb1"
             ]
         ]
-    },
-    {
-        "id": "bedf7d0e03cfee5f",
-        "type": "debug",
-        "z": "87374f11104ba721",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 900,
-        "y": 400,
-        "wires": []
     },
     {
         "id": "14332db59f62538b",
         "type": "inject",
         "z": "87374f11104ba721",
-        "name": "",
+        "name": "manually preview image",
         "props": [
             {
                 "p": "payload"
@@ -1193,7 +1163,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 240,
-        "y": 540,
+        "y": 480,
         "wires": [
             [
                 "bcae1ab2f3846ab1"
@@ -1207,17 +1177,16 @@
         "name": "",
         "filename": "ship.png",
         "filenameType": "str",
-        "format": "utf8",
+        "format": "",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 460,
-        "y": 740,
+        "x": 320,
+        "y": 540,
         "wires": [
             [
-                "86dda847f1f767fa",
-                "c9e28681.361d78"
+                "c036a1a44b9e6446"
             ]
         ]
     },
@@ -1230,354 +1199,13 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 220,
-        "y": 820,
+        "x": 160,
+        "y": 280,
         "wires": [
             [
-                "bcae1ab2f3846ab1"
+                "e5e4f55da724b180"
             ]
         ]
-    },
-    {
-        "id": "6c44befe0329958c",
-        "type": "http response",
-        "z": "87374f11104ba721",
-        "name": "",
-        "statusCode": "200",
-        "headers": {
-            "content-type": "image/png"
-        },
-        "x": 860,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "02097124f22c1689",
-        "type": "image",
-        "z": "87374f11104ba721",
-        "name": "",
-        "width": 160,
-        "data": "payload",
-        "dataType": "msg",
-        "thumbnail": false,
-        "active": true,
-        "pass": true,
-        "outputs": 1,
-        "x": 680,
-        "y": 360,
-        "wires": [
-            [
-                "4049217c3f54aab8"
-            ]
-        ]
-    },
-    {
-        "id": "c9e28681.361d78",
-        "type": "change",
-        "z": "87374f11104ba721",
-        "name": "Set Headers",
-        "rules": [],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 690,
-        "y": 740,
-        "wires": [
-            [
-                "6c44befe0329958c"
-            ]
-        ]
-    },
-    {
-        "id": "86dda847f1f767fa",
-        "type": "image",
-        "z": "87374f11104ba721",
-        "name": "",
-        "width": 160,
-        "data": "payload",
-        "dataType": "msg",
-        "thumbnail": false,
-        "active": true,
-        "pass": false,
-        "outputs": 0,
-        "x": 660,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "cf83139fa95086c1",
-        "type": "http in",
-        "z": "87374f11104ba721",
-        "name": "",
-        "url": "/hello-file",
-        "method": "get",
-        "swaggerDoc": "",
-        "x": 230,
-        "y": 1260,
-        "wires": [
-            [
-                "351c7a6486bad602"
-            ]
-        ]
-    },
-    {
-        "id": "351c7a6486bad602",
-        "type": "file in",
-        "z": "87374f11104ba721",
-        "name": "",
-        "filename": "ship.png",
-        "filenameType": "str",
-        "format": "",
-        "allProps": false,
-        "x": 410,
-        "y": 1260,
-        "wires": [
-            [
-                "c0639d21b6fb405d"
-            ]
-        ]
-    },
-    {
-        "id": "c0639d21b6fb405d",
-        "type": "change",
-        "z": "87374f11104ba721",
-        "name": "Set Headers",
-        "rules": [
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "headers.content-type",
-                "pt": "msg",
-                "to": "image/png",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 1260,
-        "wires": [
-            [
-                "f11bbbe363ae1d69"
-            ]
-        ]
-    },
-    {
-        "id": "f11bbbe363ae1d69",
-        "type": "http response",
-        "z": "87374f11104ba721",
-        "name": "",
-        "x": 730,
-        "y": 1260,
-        "wires": []
-    },
-    {
-        "id": "013c7a22beb6ab0f",
-        "type": "inject",
-        "z": "87374f11104ba721",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 260,
-        "y": 1480,
-        "wires": [
-            [
-                "774b29243863822b"
-            ]
-        ]
-    },
-    {
-        "id": "774b29243863822b",
-        "type": "http request",
-        "z": "87374f11104ba721",
-        "name": "",
-        "method": "GET",
-        "ret": "bin",
-        "paytoqs": "ignore",
-        "url": "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+555555(-1.0448,50.5707)/-1.0448,50.5707,4,0/600x600?access_token=pk.eyJ1IjoiY29sbGluc2NvY2hyYW4iLCJhIjoiY2xkdGM2cHNuMGhibzNvcGVpdTdtOXhidCJ9.u_JkCmDXw-PzGCXv9RoolA",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 470,
-        "y": 1480,
-        "wires": [
-            [
-                "2807546d40cd9116",
-                "f22198f9c8fac199",
-                "4f55a57127a6dda4"
-            ]
-        ]
-    },
-    {
-        "id": "f22198f9c8fac199",
-        "type": "file",
-        "z": "87374f11104ba721",
-        "name": "",
-        "filename": "newimage.jpg",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 700,
-        "y": 1480,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2807546d40cd9116",
-        "type": "debug",
-        "z": "87374f11104ba721",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 1420,
-        "wires": []
-    },
-    {
-        "id": "4f55a57127a6dda4",
-        "type": "image",
-        "z": "87374f11104ba721",
-        "name": "",
-        "width": 160,
-        "data": "payload",
-        "dataType": "msg",
-        "thumbnail": false,
-        "active": true,
-        "pass": false,
-        "outputs": 0,
-        "x": 660,
-        "y": 1540,
-        "wires": []
-    },
-    {
-        "id": "338d65c9490810d0",
-        "type": "inject",
-        "z": "87374f11104ba721",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 200,
-        "y": 1820,
-        "wires": [
-            [
-                "c5283290c7e2ac77"
-            ]
-        ]
-    },
-    {
-        "id": "c5283290c7e2ac77",
-        "type": "http request",
-        "z": "87374f11104ba721",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "https://bmw.purestud.io/ship",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [
-            {
-                "keyType": "Content-Type",
-                "keyValue": "",
-                "valueType": "image/png",
-                "valueValue": ""
-            }
-        ],
-        "x": 410,
-        "y": 1840,
-        "wires": [
-            [
-                "6f856e939122e4cf",
-                "83224e73f28d5b30"
-            ]
-        ]
-    },
-    {
-        "id": "6f856e939122e4cf",
-        "type": "image",
-        "z": "87374f11104ba721",
-        "name": "",
-        "width": 160,
-        "data": "payload",
-        "dataType": "msg",
-        "thumbnail": false,
-        "active": true,
-        "pass": false,
-        "outputs": 0,
-        "x": 680,
-        "y": 1840,
-        "wires": []
-    },
-    {
-        "id": "83224e73f28d5b30",
-        "type": "debug",
-        "z": "87374f11104ba721",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 2140,
-        "wires": []
     },
     {
         "id": "c29f37089f0af26c",
@@ -1598,19 +1226,17 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 430,
-        "y": 60,
+        "x": 790,
+        "y": 120,
         "wires": [
-            [
-                "1a9ab968a78337a1"
-            ]
+            []
         ]
     },
     {
         "id": "1f3ac827109b5030",
         "type": "inject",
         "z": "87374f11104ba721",
-        "name": "inject ",
+        "name": "update map",
         "props": [
             {
                 "p": "payload"
@@ -1627,11 +1253,651 @@
         "topic": "",
         "payload": "vessle",
         "payloadType": "global",
-        "x": 90,
-        "y": 160,
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "e97f0346bf3ad5d8"
+            ]
+        ]
+    },
+    {
+        "id": "8792818ad02301e3",
+        "type": "json",
+        "z": "87374f11104ba721",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 400,
+        "wires": [
+            [
+                "e22120a0b6523739"
+            ]
+        ]
+    },
+    {
+        "id": "e97f0346bf3ad5d8",
+        "type": "change",
+        "z": "87374f11104ba721",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vessle",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 180,
         "wires": [
             [
                 "5bc32c9ad72ea42f"
+            ]
+        ]
+    },
+    {
+        "id": "315bc76d49b93952",
+        "type": "switch",
+        "z": "87374f11104ba721",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "The page cannot be displayed because an internal server error has occurred.",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [],
+            [
+                "a10c73268bfaaa3e"
+            ]
+        ]
+    },
+    {
+        "id": "c036a1a44b9e6446",
+        "type": "image viewer",
+        "z": "87374f11104ba721",
+        "name": "",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "active": true,
+        "x": 510,
+        "y": 540,
+        "wires": [
+            [
+                "6c44befe0329958c"
+            ]
+        ]
+    },
+    {
+        "id": "6c44befe0329958c",
+        "type": "http response",
+        "z": "87374f11104ba721",
+        "name": "",
+        "statusCode": "200",
+        "headers": {
+            "content-type": "image/png"
+        },
+        "x": 680,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "68d8d16ca595c7c2",
+        "type": "delay",
+        "z": "87374f11104ba721",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "5",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 400,
+        "wires": [
+            [
+                "ebdee78e57a509de"
+            ],
+            [
+                "3039727f7b81f0f6"
+            ]
+        ]
+    },
+    {
+        "id": "b8b77b2577640ca4",
+        "type": "link in",
+        "z": "87374f11104ba721",
+        "name": "get new location image",
+        "links": [
+            "e5e4f55da724b180"
+        ],
+        "x": 125,
+        "y": 400,
+        "wires": [
+            [
+                "68d8d16ca595c7c2"
+            ]
+        ]
+    },
+    {
+        "id": "1b8dd0622a15b4e3",
+        "type": "inject",
+        "z": "87374f11104ba721",
+        "name": "refresh data manually",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 340,
+        "wires": [
+            [
+                "ebdee78e57a509de"
+            ]
+        ]
+    },
+    {
+        "id": "d8b7d450e40b9a16",
+        "type": "link out",
+        "z": "87374f11104ba721",
+        "name": "reply to http request for image",
+        "mode": "link",
+        "links": [
+            "c006bf0086e368c3"
+        ],
+        "x": 2165,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ebdee78e57a509de",
+        "type": "change",
+        "z": "87374f11104ba721",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vessle",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 400,
+        "wires": [
+            [
+                "8792818ad02301e3"
+            ]
+        ]
+    },
+    {
+        "id": "e5e4f55da724b180",
+        "type": "link out",
+        "z": "87374f11104ba721",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "b8b77b2577640ca4"
+        ],
+        "x": 265,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c006bf0086e368c3",
+        "type": "link in",
+        "z": "87374f11104ba721",
+        "name": "http send",
+        "links": [
+            "d8b7d450e40b9a16"
+        ],
+        "x": 145,
+        "y": 540,
+        "wires": [
+            [
+                "bcae1ab2f3846ab1"
+            ]
+        ]
+    },
+    {
+        "id": "b2e31c76ca2d351e",
+        "type": "jimp-image",
+        "z": "87374f11104ba721",
+        "name": "",
+        "data": "payload",
+        "dataType": "msg",
+        "ret": "buf",
+        "parameter1": "FONT_SANS_16_BLACK",
+        "parameter1Type": "jimpFont",
+        "parameter2": "1",
+        "parameter2Type": "num",
+        "parameter3": "530",
+        "parameter3Type": "num",
+        "parameter4": "text",
+        "parameter4Type": "msg",
+        "parameter5": "600",
+        "parameter5Type": "num",
+        "parameter6": "600",
+        "parameter6Type": "num",
+        "parameter7": "",
+        "parameter7Type": "msg",
+        "parameter8": "",
+        "parameter8Type": "msg",
+        "sendProperty": "payload",
+        "sendPropertyType": "msg",
+        "parameterCount": 6,
+        "jimpFunction": "print",
+        "selectedJimpFunction": {
+            "name": "print",
+            "fn": "print",
+            "description": "Print text to the image",
+            "parameters": [
+                {
+                    "name": "font|str",
+                    "type": "jimpFont",
+                    "required": true,
+                    "hint": "font to print. NOTE: This can be one of the presets or the path to a fnt file"
+                },
+                {
+                    "name": "x",
+                    "type": "num",
+                    "required": true,
+                    "hint": "x coordinate to print text"
+                },
+                {
+                    "name": "y",
+                    "type": "num",
+                    "required": true,
+                    "hint": "y coordinate to print text"
+                },
+                {
+                    "name": "text",
+                    "type": "str",
+                    "required": true,
+                    "hint": "text to print"
+                },
+                {
+                    "name": "maxWidth",
+                    "type": "num",
+                    "required": false,
+                    "hint": "wrap text at maxWidth"
+                },
+                {
+                    "name": "maxHeight",
+                    "type": "num",
+                    "required": false,
+                    "hint": "max height"
+                }
+            ]
+        },
+        "x": 1710,
+        "y": 400,
+        "wires": [
+            [
+                "4049217c3f54aab8"
+            ]
+        ]
+    },
+    {
+        "id": "f55b195a1a840cb1",
+        "type": "image",
+        "z": "87374f11104ba721",
+        "name": "",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": true,
+        "outputs": 1,
+        "x": 2040,
+        "y": 400,
+        "wires": [
+            [
+                "d8b7d450e40b9a16"
+            ]
+        ]
+    },
+    {
+        "id": "6120805f97ae6d3b",
+        "type": "template",
+        "z": "87374f11104ba721",
+        "name": "",
+        "field": "text",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Latitude: {{vessle.F.LAT}}, Longitude {{vessle.F.LNG}} - Speed: {{vessle.cval-sog.V}} - Time: {{myrawdate}}",
+        "output": "str",
+        "x": 1560,
+        "y": 400,
+        "wires": [
+            [
+                "b2e31c76ca2d351e"
+            ]
+        ]
+    },
+    {
+        "id": "7ebeaa5b5835a3bf",
+        "type": "change",
+        "z": "87374f11104ba721",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vessle",
+                "pt": "msg",
+                "to": "vessle",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 400,
+        "wires": [
+            [
+                "fac6c87d5302be75"
+            ]
+        ]
+    },
+    {
+        "id": "fac6c87d5302be75",
+        "type": "json",
+        "z": "87374f11104ba721",
+        "name": "",
+        "property": "vessle",
+        "action": "",
+        "pretty": false,
+        "x": 1250,
+        "y": 400,
+        "wires": [
+            [
+                "21ba1f468e4e5532"
+            ]
+        ]
+    },
+    {
+        "id": "21ba1f468e4e5532",
+        "type": "simpletime",
+        "z": "87374f11104ba721",
+        "name": "",
+        "mydate": true,
+        "myymd": true,
+        "myyear": true,
+        "mymonth": true,
+        "mymonthn": true,
+        "mydom": true,
+        "mydoy": true,
+        "myday": true,
+        "myhourpm": true,
+        "myhour": true,
+        "mytime": true,
+        "mytimes": true,
+        "myminute": true,
+        "myminutes": true,
+        "mysecond": true,
+        "mymillis": true,
+        "myepoch": true,
+        "myrawdate": true,
+        "mypm": true,
+        "x": 1390,
+        "y": 400,
+        "wires": [
+            [
+                "6120805f97ae6d3b"
+            ]
+        ]
+    },
+    {
+        "id": "9e06a34d8d416811",
+        "type": "inject",
+        "z": "9907ef4cc8e9284f",
+        "name": "refresh ship data from vesslefinder",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"Joe\", \"lat\":51, \"lon\":-1.05}",
+        "payloadType": "str",
+        "x": 200,
+        "y": 100,
+        "wires": [
+            [
+                "0d8e6f664b8be2ac"
+            ]
+        ]
+    },
+    {
+        "id": "0d8e6f664b8be2ac",
+        "type": "switch",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "The page cannot be displayed because an internal server error has occurred.",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [],
+            [
+                "8662ce881f577eb7"
+            ]
+        ]
+    },
+    {
+        "id": "d25a157ff75be3f5",
+        "type": "http request",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 870,
+        "y": 140,
+        "wires": [
+            [
+                "6fda0e90ab59558d"
+            ]
+        ]
+    },
+    {
+        "id": "6fda0e90ab59558d",
+        "type": "change",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "newvessle",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1060,
+        "y": 140,
+        "wires": [
+            [
+                "5e3eca4e4c5e756f"
+            ]
+        ]
+    },
+    {
+        "id": "d4b06cbcd5b88b91",
+        "type": "http in",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "url": "/api/track",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "7dea04834454cd29",
+                "aff059d0d14ffb5b"
+            ]
+        ]
+    },
+    {
+        "id": "5e3eca4e4c5e756f",
+        "type": "http response",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/json"
+        },
+        "x": 1210,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7dea04834454cd29",
+        "type": "debug",
+        "z": "9907ef4cc8e9284f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8662ce881f577eb7",
+        "type": "template",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://myshiptracking.com/requests/vesseldetailsTEST.php?type=json&mmsi={{payload}}&return=json&lang=",
+        "output": "str",
+        "x": 720,
+        "y": 140,
+        "wires": [
+            [
+                "d25a157ff75be3f5"
+            ]
+        ]
+    },
+    {
+        "id": "aff059d0d14ffb5b",
+        "type": "change",
+        "z": "9907ef4cc8e9284f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "req.query.mmsi",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "0d8e6f664b8be2ac"
             ]
         ]
     }
