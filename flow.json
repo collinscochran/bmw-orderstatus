@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "b1e6237a0820933f",
+        "type": "tab",
+        "label": "panama canal pictures",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3246d1478bd44dda",
         "type": "junction",
         "z": "0422238f0ca23b6d",
@@ -60,6 +68,19 @@
         ]
     },
     {
+        "id": "c0afcda634ac33f9",
+        "type": "junction",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "x": 1357,
+        "y": 442,
+        "wires": [
+            [
+                "5d765964d3d2e51d"
+            ]
+        ]
+    },
+    {
         "id": "fcefd17e94a496bd",
         "type": "twilio-api",
         "name": "",
@@ -73,6 +94,17 @@
         "region": "1",
         "unit": "imperial",
         "debug": false
+    },
+    {
+        "id": "c835a499732ca322",
+        "type": "ftp",
+        "host": "10.60.100.36",
+        "port": "",
+        "secureOptions": "",
+        "user": "bmw-ship",
+        "connTimeout": "",
+        "pasvTimeout": "",
+        "keepalive": ""
     },
     {
         "id": "5ba4648f.e37f3c",
@@ -230,7 +262,7 @@
         "type": "debug",
         "z": "0422238f0ca23b6d",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -340,7 +372,8 @@
         "y": 400,
         "wires": [
             [
-                "9bca935ea828625c"
+                "9bca935ea828625c",
+                "482799479ce2e7ee"
             ]
         ]
     },
@@ -714,7 +747,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "1",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "hour",
         "randomFirst": "1",
@@ -723,7 +756,7 @@
         "drop": true,
         "allowrate": false,
         "outputs": 2,
-        "x": 250,
+        "x": 260,
         "y": 400,
         "wires": [
             [
@@ -851,13 +884,13 @@
         "name": "refresh token manually",
         "props": [
             {
-                "p": "payload.username",
-                "v": "username here",
+                "p": "auth.username",
+                "v": "collins@collinscochran.com",
                 "vt": "str"
             },
             {
-                "p": "payload.password",
-                "v": "password here",
+                "p": "auth.password",
+                "v": "Shotdesk24",
                 "vt": "str"
             }
         ],
@@ -947,7 +980,7 @@
         "type": "debug",
         "z": "0422238f0ca23b6d",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1088,13 +1121,14 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+555555({{payload.F.LNG}},{{payload.F.LAT}})/{{payload.F.LNG}},{{payload.F.LAT}},7,0/600x600?access_token=pk.eyJ1IjoiY29sbGluc2NvY2hyYW4iLCJhIjoiY2xkdGM2cHNuMGhibzNvcGVpdTdtOXhidCJ9.u_JkCmDXw-PzGCXv9RoolA",
+        "template": "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+555555({{payload.F.LNG}},{{payload.F.LAT}})/{{payload.F.LNG}},{{payload.F.LAT}},4,0/600x600?access_token=pk.eyJ1IjoiY29sbGluc2NvY2hyYW4iLCJhIjoiY2xkdGM2cHNuMGhibzNvcGVpdTdtOXhidCJ9.u_JkCmDXw-PzGCXv9RoolA",
         "output": "str",
         "x": 780,
         "y": 400,
         "wires": [
             [
-                "e4aed7ccd05d5902"
+                "e4aed7ccd05d5902",
+                "fd77309a62439840"
             ]
         ]
     },
@@ -1137,7 +1171,8 @@
         "y": 400,
         "wires": [
             [
-                "f55b195a1a840cb1"
+                "f55b195a1a840cb1",
+                "1874cc70b68d1a92"
             ]
         ]
     },
@@ -1329,7 +1364,8 @@
         "wires": [
             [],
             [
-                "a10c73268bfaaa3e"
+                "a10c73268bfaaa3e",
+                "1929e6be9ddf0e60"
             ]
         ]
     },
@@ -1699,33 +1735,53 @@
         ]
     },
     {
-        "id": "9e06a34d8d416811",
-        "type": "inject",
-        "z": "9907ef4cc8e9284f",
-        "name": "refresh ship data from vesslefinder",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "60",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"name\":\"Joe\", \"lat\":51, \"lon\":-1.05}",
-        "payloadType": "str",
-        "x": 200,
-        "y": 100,
-        "wires": [
-            [
-                "0d8e6f664b8be2ac"
-            ]
-        ]
+        "id": "1929e6be9ddf0e60",
+        "type": "debug",
+        "z": "87374f11104ba721",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1874cc70b68d1a92",
+        "type": "debug",
+        "z": "87374f11104ba721",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2020,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "fd77309a62439840",
+        "type": "debug",
+        "z": "87374f11104ba721",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 340,
+        "wires": []
     },
     {
         "id": "0d8e6f664b8be2ac",
@@ -1851,8 +1907,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 360,
-        "y": 280,
+        "x": 320,
+        "y": 240,
         "wires": []
     },
     {
@@ -1898,6 +1954,993 @@
         "wires": [
             [
                 "0d8e6f664b8be2ac"
+            ]
+        ]
+    },
+    {
+        "id": "aa17033cd3d1820e",
+        "type": "http request",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 280,
+        "wires": [
+            [
+                "3db3aaa8dd60f95f"
+            ]
+        ]
+    },
+    {
+        "id": "242079e9a7a551c6",
+        "type": "file",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "filename": "localFilename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1680,
+        "y": 220,
+        "wires": [
+            [
+                "65017c739476eb36"
+            ]
+        ]
+    },
+    {
+        "id": "65017c739476eb36",
+        "type": "image",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": true,
+        "outputs": 1,
+        "x": 1860,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3118c806b3a2eb7d",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "miraflores",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/hd-miraflores.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "miraflores",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "92cd3aad77bead14"
+            ]
+        ]
+    },
+    {
+        "id": "3b5eb0d3a47d19a6",
+        "type": "simpletime",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "mydate": true,
+        "myymd": true,
+        "myyear": true,
+        "mymonth": true,
+        "mymonthn": true,
+        "mydom": true,
+        "mydoy": true,
+        "myday": true,
+        "myhourpm": true,
+        "myhour": true,
+        "mytime": true,
+        "mytimes": true,
+        "myminute": true,
+        "myminutes": true,
+        "mysecond": true,
+        "mymillis": true,
+        "myepoch": true,
+        "myrawdate": true,
+        "mypm": true,
+        "x": 930,
+        "y": 200,
+        "wires": [
+            [
+                "bdb778ce6a8c4bb6",
+                "caffb959463de92f"
+            ]
+        ]
+    },
+    {
+        "id": "49e0754ad2c6719e",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "local file name",
+        "field": "localFilename",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "panama/{{camName}}/{{filenameRaw}}",
+        "output": "str",
+        "x": 1180,
+        "y": 220,
+        "wires": [
+            [
+                "242079e9a7a551c6"
+            ]
+        ]
+    },
+    {
+        "id": "3db3aaa8dd60f95f",
+        "type": "switch",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 200,
+        "wires": [
+            [
+                "3b5eb0d3a47d19a6"
+            ],
+            [
+                "aa17033cd3d1820e"
+            ]
+        ]
+    },
+    {
+        "id": "39e6a6d0d9f9607c",
+        "type": "ftp in",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "ftp": "c835a499732ca322",
+        "operation": "put",
+        "filename": "",
+        "localFilename": "",
+        "name": "",
+        "x": 1530,
+        "y": 260,
+        "wires": [
+            [
+                "ffdc73a703a235ca"
+            ]
+        ]
+    },
+    {
+        "id": "340928be9714bc34",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "remote file name",
+        "field": "filename",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "/tvs-collins/bmw_panamax/images/{{camName}}/{{filenameRaw}}",
+        "output": "str",
+        "x": 1370,
+        "y": 260,
+        "wires": [
+            [
+                "39e6a6d0d9f9607c"
+            ]
+        ]
+    },
+    {
+        "id": "ffdc73a703a235ca",
+        "type": "debug",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "bdb778ce6a8c4bb6",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "raw jpg name",
+        "field": "filenameRaw",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{camName}}-{{myepoch}}.jpg",
+        "output": "str",
+        "x": 960,
+        "y": 240,
+        "wires": [
+            [
+                "49e0754ad2c6719e",
+                "669721e668712c00"
+            ]
+        ]
+    },
+    {
+        "id": "669721e668712c00",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "local file name",
+        "field": "localFilename",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "panama/{{camname}}/{{filenameRaw}}",
+        "output": "str",
+        "x": 1180,
+        "y": 260,
+        "wires": [
+            [
+                "340928be9714bc34"
+            ]
+        ]
+    },
+    {
+        "id": "92cd3aad77bead14",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "",
+        "output": "str",
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "b5ad65b625fc1903"
+            ]
+        ]
+    },
+    {
+        "id": "f19191b2fb199cf7",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "pedro-miguel",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/cerro-luisa00001.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "pedro-miguel",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "92cd3aad77bead14"
+            ]
+        ]
+    },
+    {
+        "id": "7dc97ee480136dd5",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "gatun",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/gatun00009.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "gatun",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "92cd3aad77bead14"
+            ]
+        ]
+    },
+    {
+        "id": "74457151f4922da9",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "cocoli",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/cocoli00001.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "cocoli",
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "92cd3aad77bead14"
+            ]
+        ]
+    },
+    {
+        "id": "520a4d3ec204846c",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "agua-clara",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/aguaclara00001.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "agua-clara",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "92cd3aad77bead14"
+            ]
+        ]
+    },
+    {
+        "id": "b5ad65b625fc1903",
+        "type": "delay",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "aa17033cd3d1820e"
+            ]
+        ]
+    },
+    {
+        "id": "1b96d4649b26fab3",
+        "type": "exec",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1750,
+        "y": 500,
+        "wires": [
+            [
+                "af2e675e289619d1",
+                "c4c8dd7eb1d08b53"
+            ],
+            [
+                "af2e675e289619d1"
+            ],
+            [
+                "af2e675e289619d1"
+            ]
+        ]
+    },
+    {
+        "id": "af2e675e289619d1",
+        "type": "debug",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1920,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "bbdcfed686e4e04d",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "ffmpeg -framerate 30 -pattern_type glob -i ~/panama/{{camName}}/'*.jpg'   -c:v libx264 -pix_fmt yuv420p ~/panama/{{camName}}/{{camName}}-timelapse-{{myepoch}}.mp4",
+        "output": "str",
+        "x": 1600,
+        "y": 440,
+        "wires": [
+            [
+                "1b96d4649b26fab3",
+                "d816d68fb5826789"
+            ]
+        ]
+    },
+    {
+        "id": "caffb959463de92f",
+        "type": "delay",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "5",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1570,
+        "y": 380,
+        "wires": [
+            [
+                "bbdcfed686e4e04d"
+            ]
+        ]
+    },
+    {
+        "id": "d816d68fb5826789",
+        "type": "debug",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1820,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "0f34117ea3b819aa",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "local file name",
+        "field": "localFilename",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "panama/{{camName}}/{{camName}}-timelapse-{{myepoch}}.mp4",
+        "output": "str",
+        "x": 1860,
+        "y": 640,
+        "wires": [
+            [
+                "e59f4b4b741b2029"
+            ]
+        ]
+    },
+    {
+        "id": "e59f4b4b741b2029",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "remote file name",
+        "field": "filename",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "/tvs-collins/bmw_panamax/videos/{{camName}}-timelapse-{{myepoch}}.mp4",
+        "output": "str",
+        "x": 2050,
+        "y": 640,
+        "wires": [
+            [
+                "0cd2c8517f0e8834"
+            ]
+        ]
+    },
+    {
+        "id": "0cd2c8517f0e8834",
+        "type": "ftp in",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "ftp": "c835a499732ca322",
+        "operation": "put",
+        "filename": "",
+        "localFilename": "",
+        "name": "",
+        "x": 2210,
+        "y": 640,
+        "wires": [
+            [
+                "8ca69885c08aa2ed",
+                "79dadf16a4f23613"
+            ]
+        ]
+    },
+    {
+        "id": "8ca69885c08aa2ed",
+        "type": "debug",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2520,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "5b48d2faa6e05b37",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "rm \"{{{toDelete}}}\"",
+        "output": "str",
+        "x": 2360,
+        "y": 680,
+        "wires": [
+            [
+                "708406dc9f587925",
+                "8ca69885c08aa2ed"
+            ]
+        ]
+    },
+    {
+        "id": "708406dc9f587925",
+        "type": "exec",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 2510,
+        "y": 680,
+        "wires": [
+            [
+                "8ca69885c08aa2ed"
+            ],
+            [
+                "8ca69885c08aa2ed"
+            ],
+            [
+                "8ca69885c08aa2ed"
+            ]
+        ]
+    },
+    {
+        "id": "79dadf16a4f23613",
+        "type": "switch",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Put operation successful.",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2230,
+        "y": 680,
+        "wires": [
+            [
+                "5b48d2faa6e05b37"
+            ]
+        ]
+    },
+    {
+        "id": "abc7961f0a20cf5e",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "miraflores",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/hd-miraflores.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "miraflores",
+        "x": 1180,
+        "y": 460,
+        "wires": [
+            [
+                "c0afcda634ac33f9"
+            ]
+        ]
+    },
+    {
+        "id": "cc5e99df2d1d9ae8",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "pedro-miguel",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/cerro-luisa00001.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "pedro-miguel",
+        "x": 1190,
+        "y": 500,
+        "wires": [
+            [
+                "c0afcda634ac33f9"
+            ]
+        ]
+    },
+    {
+        "id": "f2efd49b491ab388",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "gatun",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/gatun00009.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "gatun",
+        "x": 1170,
+        "y": 540,
+        "wires": [
+            [
+                "c0afcda634ac33f9"
+            ]
+        ]
+    },
+    {
+        "id": "58d6d0fedde17c04",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "cocoli",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/cocoli00001.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "cocoli",
+        "x": 1170,
+        "y": 580,
+        "wires": [
+            [
+                "c0afcda634ac33f9"
+            ]
+        ]
+    },
+    {
+        "id": "b590288dccda5d44",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "camName",
+                "v": "agua-clara",
+                "vt": "str"
+            },
+            {
+                "p": "url",
+                "v": "https://webcams.delcanal.com/aguaclara00001.jpg",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "agua-clara",
+        "x": 1190,
+        "y": 620,
+        "wires": [
+            [
+                "c0afcda634ac33f9"
+            ]
+        ]
+    },
+    {
+        "id": "5d765964d3d2e51d",
+        "type": "simpletime",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "mydate": true,
+        "myymd": true,
+        "myyear": true,
+        "mymonth": true,
+        "mymonthn": true,
+        "mydom": true,
+        "mydoy": true,
+        "myday": true,
+        "myhourpm": true,
+        "myhour": true,
+        "mytime": true,
+        "mytimes": true,
+        "myminute": true,
+        "myminutes": true,
+        "mysecond": true,
+        "mymillis": true,
+        "myepoch": true,
+        "myrawdate": true,
+        "mypm": true,
+        "x": 1450,
+        "y": 500,
+        "wires": [
+            [
+                "bbdcfed686e4e04d"
+            ]
+        ]
+    },
+    {
+        "id": "c4c8dd7eb1d08b53",
+        "type": "template",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "local file name",
+        "field": "toDelete",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "panama/{{camName}}/{{camName}}-timelapse-{{myepoch}}.mp4",
+        "output": "str",
+        "x": 1780,
+        "y": 580,
+        "wires": [
+            [
+                "0f34117ea3b819aa"
+            ]
+        ]
+    },
+    {
+        "id": "5eb25e3d64437551",
+        "type": "inject",
+        "z": "b1e6237a0820933f",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "toDelete",
+                "v": "panama/miraflores/miraflores-timelapse-1676855813739.mp4",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 2080,
+        "y": 840,
+        "wires": [
+            [
+                "5b48d2faa6e05b37"
             ]
         ]
     }
